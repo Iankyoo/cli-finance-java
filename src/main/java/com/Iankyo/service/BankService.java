@@ -12,18 +12,18 @@ import java.util.Optional;
 public class BankService {
     List<BankAccount> bank = new ArrayList<>();
     private int accountNumber;
+    private static final double savings_interest_rate = 0.05;
 
-    public void createAccount(String holder, String type, double interestRate) {
-
+    public void createAccount(String holder, String type) {
         if (holder == null || holder.isBlank()) throw  new IllegalArgumentException("Holder name cannot be empty");
 
         if (type.equals("savings")) {
-            SavingsAccount new_account = new SavingsAccount(accountNumber, holder, interestRate);
-            bank.add(new_account);
+            SavingsAccount newAccount = new SavingsAccount(accountNumber, holder, savings_interest_rate);
+            bank.add(newAccount);
             accountNumber += 1;
         } else if (type.equals("checking")) {
-            BankAccount new_account = new BankAccount(accountNumber, holder);
-            bank.add(new_account);
+            BankAccount newAccount = new BankAccount(accountNumber, holder);
+            bank.add(newAccount);
             accountNumber += 1;
         } else {
             throw new IllegalArgumentException("Invalid account type: " + type);
@@ -43,6 +43,7 @@ public class BankService {
     }
 
     public void withdraw(double amount, int accountNumber) {
+        if (amount <= 0) throw new IllegalArgumentException("Amount must be positive");
         findAccount(accountNumber).withdraw(amount);
     }
 
@@ -65,6 +66,11 @@ public class BankService {
     public Optional<BankAccount> richestAccount(){
         return  bank.stream()
                 .max(Comparator.comparingDouble(BankAccount::getBalance));
+    }
+
+    public Optional<BankAccount> lastAccountCreated(){
+        return bank.stream()
+                .max(Comparator.comparingInt(BankAccount::getAccountNumber));
     }
 
 }
