@@ -17,6 +17,7 @@ public class BankCLI {
 
     public void start(){
         while (true){
+            clearScreen();
             printMenu();
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -86,6 +87,7 @@ public class BankCLI {
         } catch (Exception e){
             System.out.println("Unexpected error: " + e.getMessage());
         }
+        pressEnterToContinue();
     }
 
     public void deposit(){
@@ -106,6 +108,7 @@ public class BankCLI {
         } catch (Exception e){
             System.out.println("Unexpected error: " + e.getMessage());
         }
+        pressEnterToContinue();
     }
 
     public void withdraw(){
@@ -125,6 +128,7 @@ public class BankCLI {
         } catch (Exception e){
             System.out.println("Unexpected error: " + e.getMessage());
         }
+        pressEnterToContinue();
     }
 
     public void transfer(){
@@ -149,22 +153,26 @@ public class BankCLI {
         } catch (Exception e){
             System.out.println("Unexpected error: " + e.getMessage());
         }
+        pressEnterToContinue();
     }
 
     public void listAllAccounts(){
         System.out.println("=== LIST ACCOUNTS ===");
         bankService.listAllAccounts();
+        pressEnterToContinue();
     }
 
     public void totalBalance(){
         System.out.println("=== TOTAL BALANCE ===");
         System.out.println("R$ " + bankService.totalBalance());
+        pressEnterToContinue();
     }
 
     public void richestAccount(){
         System.out.println("=== RICHEST ACCOUNT ===");
         bankService.richestAccount()
                 .ifPresent(a -> System.out.println(a));
+        pressEnterToContinue();
     }
 
     public void applyInterest(){
@@ -188,7 +196,16 @@ public class BankCLI {
         } catch (Exception e){
             System.out.println("Unexpected error: " + e.getMessage());
         }
+        pressEnterToContinue();
+    }
 
+    private void clearScreen(){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+    private void pressEnterToContinue(){
+        System.out.println("\nPress Enter to continue...");
+        scanner.nextLine();
     }
 
 }

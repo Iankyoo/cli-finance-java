@@ -3,9 +3,11 @@ package com.Iankyo.model;
 import com.Iankyo.exception.InsufficientBalanceException;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class BankAccount {
     private int accountNumber;
     private String accountHolder;
