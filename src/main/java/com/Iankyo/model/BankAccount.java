@@ -8,13 +8,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
 public class BankAccount {
     private int accountNumber;
     private String accountHolder;
     private double balance;
 
     public BankAccount(int accountNumber, String accountHolder){
-        this.accountNumber = accountNumber;
+        this.accountNumber = accountNumber + 1;
         this.accountHolder = accountHolder;
         this.balance = 0.0;
     }
